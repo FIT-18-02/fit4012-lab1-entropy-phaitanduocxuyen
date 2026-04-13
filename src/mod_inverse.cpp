@@ -29,30 +29,27 @@ int mod_inverse(int a, int m) {
     int x = 0, y = 0;
     int g = extended_euclid(a, m, x, y);
 
-    // Nếu gcd(a, m) khác 1 thì không có nghịch đảo
     if (g != 1) {
-        return -1;
+        return -1; // Không tồn tại nghịch đảo modulo
     }
 
-    // Kết quả x có thể âm, ta cần đưa về phạm vi [0, m-1]
+    // Đảm bảo kết quả trả về là số dương trong khoảng [0, m-1]
     return (x % m + m) % m;
 }
 
 int main() {
     int a = 0, m = 0;
-    cout << "Nhap a va m: ";
+    cout << "Nhap a, m: ";
     if (!(cin >> a >> m)) return 0;
 
-    int inv = mod_inverse(a, m);
-
-    if (inv == -1) {
-        cout << "Khong ton tai nghich dao modulo vi gcd(" << a << ", " << m << ") != 1.\n";
-    } else {
-        cout << "Nghich dao cua " << a << " mod " << m << " la: " << inv << '\n';
-        // Sử dụng 1LL để tránh tràn số khi nhân (long long)
-        cout << "Kiem tra: (" << a << " * " << inv << ") % " << m
-             << " = " << (1LL * a * inv % m) << '\n';
+    if (gcd(a, m) != 1) {
+        cout << "Khong ton tai nghich dao modulo vi gcd(a, m) != 1.\n";
+        return 0;
     }
 
+    int inv = mod_inverse(a, m);
+    cout << "Nghich dao cua " << a << " mod " << m << " la: " << inv << '\n';
+    cout << "Kiem tra: " << a << " * " << inv << " % " << m
+         << " = " << (1LL * a * inv % m) << '\n';
     return 0;
 }
