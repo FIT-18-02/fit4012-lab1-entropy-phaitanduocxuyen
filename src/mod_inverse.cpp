@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// Hàm tính GCD cơ bản
 int gcd(int a, int b) {
     while (b != 0) {
         int temp = b;
@@ -11,6 +12,7 @@ int gcd(int a, int b) {
     return a;
 }
 
+// Hàm Euclid mở rộng tìm x, y sao cho ax + by = gcd(a, b)
 int extended_euclid(int a, int b, int &x, int &y) {
     if (b == 0) {
         x = 1;
@@ -25,31 +27,36 @@ int extended_euclid(int a, int b, int &x, int &y) {
     return g;
 }
 
+// Hàm tìm nghịch đảo Modulo
 int mod_inverse(int a, int m) {
     int x = 0, y = 0;
     int g = extended_euclid(a, m, x, y);
 
+    int result;
     if (g != 1) {
-        return -1; // Không tồn tại nghịch đảo modulo
+        result = -1; // Không tồn tại nghịch đảo
+    } else {
+        // Đưa x về số dư dương trong khoảng [0, m-1]
+        result = (x % m + m) % m;
     }
 
-    // Đảm bảo kết quả trả về là số dương trong khoảng [0, m-1]
-    return (x % m + m) % m;
+    return result;
 }
 
 int main() {
     int a = 0, m = 0;
-    cout << "Nhap a, m: ";
+    cout << "Nhap a va m: ";
     if (!(cin >> a >> m)) return 0;
 
+    // Kiểm tra điều kiện tồn tại trước khi gọi hàm
     if (gcd(a, m) != 1) {
         cout << "Khong ton tai nghich dao modulo vi gcd(a, m) != 1.\n";
-        return 0;
+    } else {
+        int inv = mod_inverse(a, m);
+        cout << "Nghich dao cua " << a << " mod " << m << " la: " << inv << '\n';
+        cout << "Kiem tra: (" << a << " * " << inv << ") % " << m
+             << " = " << (1LL * a * inv % m) << '\n';
     }
 
-    int inv = mod_inverse(a, m);
-    cout << "Nghich dao cua " << a << " mod " << m << " la: " << inv << '\n';
-    cout << "Kiem tra: " << a << " * " << inv << " % " << m
-         << " = " << (1LL * a * inv % m) << '\n';
     return 0;
 }
