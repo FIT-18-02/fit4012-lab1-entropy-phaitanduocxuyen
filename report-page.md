@@ -1,7 +1,7 @@
 # Report 1 Page – FIT4012 Lab 1
 
 ## 1. Mục tiêu
-Tóm tắt ngắn gọn mục tiêu của bài lab.
+chạy và học được mã tính entropy chuỗi ký tự, viết hàm đo độ dư thừa thông tin, cài đặt thuật toán Euclid mở rộng để tìm nghịch đảo modulo, và nộp bài qua GitHub.
 
 ## 2. Cách làm
 - Đọc hiểu chương trình entropy mẫu.
